@@ -1,8 +1,7 @@
-case class Water(temperature: Double = 40) extends App {
+case class Water(temperature: Double = 40) {
 
-  def heat(water: Water, temperature: Double): Water = {
-    water
-    .copy(temperature)
+  def heat(temperature: Double): Water = {
+    this.copy(temperature)
   }
 
 }
