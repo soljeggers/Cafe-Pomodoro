@@ -6,6 +6,8 @@ class WaterSpec extends WordSpec with MustMatchers {
 
     "return 'The water is boiled' when no temperature is specified" in {
 
+      Cafe.water mustEqual "The Water is boiled..."
+
     }
   }
 }
