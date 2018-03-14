@@ -1,0 +1,7 @@
+class Water(temperature: Int) {
+
+  def heat(water : Water, temperature : Int = 40): String = "The water is boiled"
+
+}
+
+
