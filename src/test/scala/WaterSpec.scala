@@ -4,9 +4,13 @@ class WaterSpec extends WordSpec with MustMatchers {
 
   "Water" must {
 
-    "return 'The water is boiled' when no temperature is specified" in {
+     "Boil to 40 degrees, if no temperature is specified" in {
+      Water() mustEqual Water(40)
 
-      Cafe.water mustEqual "The Water is boiled..."
+    }
+
+    "return a new instance of Water with specified temperature" in {
+      Water(90) mustEqual Water(90)
 
     }
   }

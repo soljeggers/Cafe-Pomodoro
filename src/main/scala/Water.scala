@@ -1,7 +1,8 @@
-class Water(temperature: Int) {
+case class Water(temperature: Double = 40) extends App {
 
-  def heat(water : Water, temperature : Int = 40): String = {
-    "The Water is boiled"
+  def heat(water: Water, temperature: Double): Water = {
+    water
+    .copy(temperature)
   }
 
 }
