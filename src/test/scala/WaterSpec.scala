@@ -11,7 +11,6 @@ class WaterSpec extends WordSpec with MustMatchers {
 
     "return a new instance of Water with specified temperature" in {
       Water(90) mustEqual Water(90)
-
     }
   }
 }
