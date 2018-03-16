@@ -12,7 +12,12 @@ object Cafe extends App {
       case b if b == "Robusta beans" => GroundCoffee("Ground Robusta")
       case _ => throw new IllegalArgumentException("Get me some real beans...")
 
-    }
 
+    }
+def froth(milk: Milk) : FrothedMilk = {
+  typeOfMilk match{
+    case c if c != "Whole Milk" => throw new IllegalArgumentException("Get the blue one...")
+  }
+}
   }
 }
