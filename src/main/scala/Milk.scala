@@ -1,3 +1,2 @@
-class Milk {
-
+case class Milk(typeOfMilk: String) {
 }
