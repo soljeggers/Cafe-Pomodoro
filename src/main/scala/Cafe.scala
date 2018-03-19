@@ -22,12 +22,12 @@ object Cafe extends App {
     }
   }
 
-//  def brewCoffee(water: Water, groundCoffee: GroundCoffee): Coffee = {
-//    if (water
-//        .temperature < 40) {
-//      throw BrewingException("The water is too cold")
-//    } else {
-//      Coffee
-//    }
-//  }
+  def brewCoffee(water: Water, groundCoffee: GroundCoffee): Coffee = {
+    if (water
+        .temperature < 40) {
+      throw BrewingException("The water is too cold")
+    } else {
+      Coffee(groundCoffee, water)
+    }
+  }
 }
