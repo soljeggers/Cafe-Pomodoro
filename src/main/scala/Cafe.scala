@@ -1,7 +1,3 @@
-case class FrothedMilk(typeOfFroth: String)
-
-case class BeanGrindException(msg: String) extends Exception
-
 object Cafe extends App {
 
   def froth(milk: Milk): FrothedMilk = {
@@ -33,7 +29,14 @@ object Cafe extends App {
   val groundbeans = grind(CoffeeBeans("Arabica bean"))
   val water = Water()
   val milk = froth(Milk("WholeMilk"))
-  
-  def combine(frothedMilk: FrothedMilk, coffee: Coffee) : Latte = Latte(frothedMilk, coffee)
+
+  def combine(frothedMilk: Option[FrothedMilk], coffee: Coffee) : Coffee = {
+    if (frothedMilk
+        .isDefined) {
+      new Latte(Water(coffee.water.temperature - 5), GroundCoffee("Ground Arabica"), FrothedMilk("WholeMilk"))
+    } else {
+      new Americano(Water(coffee.water.temperature), GroundCoffee("Ground Arabica"))
+    }
+  }
 
 }
