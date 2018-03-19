@@ -28,4 +28,12 @@ object Cafe extends App {
       Coffee(water,groundCoffee)
     }
   }
+
+
+  val groundbeans = grind(CoffeeBeans("Arabica bean"))
+  val water = Water()
+  val milk = froth(Milk("WholeMilk"))
+  
+  def combine(frothedMilk: FrothedMilk, coffee: Coffee) : Latte = Latte(frothedMilk, coffee)
+
 }
