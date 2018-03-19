@@ -10,6 +10,10 @@ class BrewSpec extends WordSpec with MustMatchers {
       }
       br.getMessage mustEqual "The water is too cold"
     }
+
+    "return a Coffee when Water and GroundCoffee are brewed at a temperature of 40 degrees" in{
+      Cafe.brewCoffee(Water(40), GroundCoffee("")) mustEqual Coffee(Water(40),GroundCoffee(""))
+    }
   }
 
 }

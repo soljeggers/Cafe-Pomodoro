@@ -1,5 +1,3 @@
-case class GroundCoffee(typeOfCoffee: String)
-
 case class FrothedMilk(typeOfFroth: String)
 
 case class BeanGrindException(msg: String) extends Exception
@@ -27,7 +25,7 @@ object Cafe extends App {
         .temperature < 40) {
       throw BrewingException("The water is too cold")
     } else {
-      Coffee(groundCoffee, water)
+      Coffee(water,groundCoffee)
     }
   }
 }
