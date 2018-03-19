@@ -6,10 +6,11 @@ case class BeanGrindException(msg: String) extends Exception
 
 object Cafe extends App {
 
-  def froth(typeOfMilk: String): FrothedMilk = {
-    typeOfMilk match {
-      case sm if sm == "Semi Skimmed Milk" => throw new IllegalArgumentException("Get the blue one...")
-      case wm => FrothedMilk("Full Fat Froth")
+  def froth(milk: Milk): FrothedMilk = {
+    milk match {
+      case wm : WholeMilk => FrothedMilk("Full Fat Froth")
+      case _ => throw new IllegalArgumentException("Get the blue one...")
+
     }
   }
 
