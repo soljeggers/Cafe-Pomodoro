@@ -4,7 +4,6 @@ class Latte(water: Water, groundCoffee: GroundCoffee, frothedMilk: FrothedMilk) 
 
 class Americano(water: Water, groundCoffee: GroundCoffee) extends Coffee(water, groundCoffee)
 
-case class BrewingException(msg : String) extends Exception(msg)
 
 
 

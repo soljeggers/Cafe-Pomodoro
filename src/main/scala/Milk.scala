@@ -1,10 +1,9 @@
-case class Milk(typeOfMilk: String)
+abstract class Milk
 
-class WholeMilk(typeOfMilk: String) extends Milk(typeOfMilk)
+object WholeMilk extends Milk
 
-class SemiSkimmedMilk(typeOfMilk: String) extends Milk(typeOfMilk)
+object SemiSkimmedMilk extends Milk
 
-case class FrothedMilk(typeOfFroth: String)
+case class FrothedMilk(`type` : Milk)
 
-case class MilkFrothingException(msg : String) extends Exception(msg)
 
