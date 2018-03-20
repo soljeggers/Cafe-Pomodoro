@@ -3,12 +3,14 @@ import org.scalatest.{MustMatchers, WordSpec}
 
 class CoffeeBeansSpec extends WordSpec with MustMatchers {
 
+  object InvalidBean extends CoffeeBeans
+
   "CoffeeBeans" must {
 
     "throw Exception with message 'Get me some real beans...' when provided with anything but 'Arabica beans' or 'Robusta beans'" in {
 
       val x = intercept[GrindingException] {
-        Cafe.grind(CoffeeBeans())
+        Cafe.grind(InvalidBean)
       }
       x.getMessage mustEqual "Get me some real beans..."
     }

@@ -1,10 +1,10 @@
-case class CoffeeBeans()
+abstract class CoffeeBeans
 
 object ArabicaBean extends CoffeeBeans
 
 object RobustaBean extends CoffeeBeans
 
-case class GroundCoffee(typeOfCoffee: String)
+case class GroundCoffee(`type`: String)
 
 
 
