@@ -6,7 +6,7 @@ class MilkSpec extends WordSpec with MustMatchers {
 
     "throw Exception with message 'IllegalArgumentException' when provided with Semi Skimmed Milk'" in {
       val m = intercept[MilkFrothingException] {
-       Cafe.froth( SemiSkimmedMilk)
+       Cafe.froth(SemiSkimmedMilk)
       }
       m.getMessage mustEqual "Get the blue one..."
     }
