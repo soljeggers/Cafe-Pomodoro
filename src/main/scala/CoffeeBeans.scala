@@ -6,8 +6,6 @@ class RobustaBean(typeOfBean:String) extends CoffeeBeans(typeOfBean)
 
 case class GroundCoffee(typeOfCoffee: String)
 
-case class GrindingException(msg : String) extends Exception(msg)
-
 
 
 
