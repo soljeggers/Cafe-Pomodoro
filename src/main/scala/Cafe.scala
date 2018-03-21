@@ -1,5 +1,6 @@
 import java.util.concurrent.Executors
-import scala.concurrent.ExecutionContext
+
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
 class MilkFrothingException(msg : String) extends Exception(msg)
@@ -12,7 +13,11 @@ object Cafe extends App {
                                       .fromExecutor(Executors
                                                     .newCachedThreadPool())
 
-  def froth(milk: Milk): FrothedMilk = {
+  def froth(milk: Milk): Future[FrothedMilk] = Future {
+    println("Got milk? yeah buddy I'll froth that for you")
+    Thread
+    .sleep(Random
+           .nextInt(2000))
     milk match {
       case m @ WholeMilk =>
         println(s"Adding the Full Fat $milk Froth")
@@ -21,19 +26,23 @@ object Cafe extends App {
     }
   }
 
-  def grind(coffeeBeans: CoffeeBeans): GroundCoffee = {
+  def grind(coffeeBeans: CoffeeBeans): Future[GroundCoffee] = Future {
+    println(s"Starting to grind the $coffeeBeans")
+    Thread
+    .sleep(Random
+           .nextInt(2000))
     coffeeBeans match {
       case ab @ ArabicaBean =>
-        println("Grinding those Arabica beans...")
+        println("oooooo Arabica powder has been created...")
         GroundCoffee("Ground Arabica")
       case rb @ RobustaBean =>
-        println("Grinding those Robusta beans...")
+        println("ooooooooo Robusta powder has been created...")
         GroundCoffee("Ground Robusta")
       case _ => throw new GrindingException("Get me some real beans...")
     }
   }
 
-  def brewCoffee(water: Water, groundCoffee: GroundCoffee): Coffee = {
+  def brewCoffee(water: Water, groundCoffee: GroundCoffee): Future[Coffee] = Future {
     if (water
         .temperature < 40) {
       throw new BrewingException("The water is too cold")
@@ -43,7 +52,7 @@ object Cafe extends App {
     }
   }
 
-  def combine(frothedMilk: Option[FrothedMilk], coffee: Coffee): Coffee = {
+  def combine(frothedMilk: Future[FrothedMilk], coffee: Coffee): Coffee = {
     if (frothedMilk
         .isDefined) {
       println("YOU'VE MADE A LATTE LAD! GOOD JOB!")
@@ -64,6 +73,7 @@ object Cafe extends App {
   val waterTemp = Water(50)
   val brewc = brewCoffee(Water(), GroundCoffee("Ground Arabica"))
   val makeLatte = combine(Some(milk), brewc)
+  val makeAmericano = combine(None, brewc)
 
 
 //  val makeCoffee =  {
