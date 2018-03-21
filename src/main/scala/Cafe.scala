@@ -20,11 +20,12 @@ object Cafe extends App {
   }
 
   def grind(coffeeBeans: CoffeeBeans): GroundCoffee = {
-    coffeeBeans
-    .typeOfBean match {
-      case "Arabica beans" => println("Grinding those Arabica beans...")
+    coffeeBeans match {
+      case ab @ ArabicaBean =>
+        println("Grinding those Arabica beans...")
         GroundCoffee("Ground Arabica")
-      case "Robusta beans" => println("Grinding those Robusta beans...")
+      case rb @ RobustaBean =>
+        println("Grinding those Robusta beans...")
         GroundCoffee("Ground Robusta")
       case _ => throw new GrindingException("Get me some real beans...")
     }
@@ -52,7 +53,8 @@ object Cafe extends App {
     }
   }
 
-  val groundbeans = grind(CoffeeBeans("Arabica beans"))
+  val groundbeans = grind(ArabicaBean)
+  val groundbeans2 = grind(RobustaBean)
   val milk = WholeMilk
   val brewc = brewCoffee(Water(), GroundCoffee("Ground Arabica"))
 }
