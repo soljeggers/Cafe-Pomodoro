@@ -12,7 +12,7 @@ class BrewSpec extends WordSpec with MustMatchers {
     }
 
     "return a Coffee when Water and GroundCoffee are brewed at a temperature of 40 degrees or above" in{
-      Cafe.brewCoffee(Water(40), GroundCoffee("")) mustEqual Coffee(Water(40),GroundCoffee(""))
+      Cafe.brewCoffee(Water(40), GroundCoffee("")) mustEqual Espresso(Water(40),GroundCoffee(""))
     }
   }
 

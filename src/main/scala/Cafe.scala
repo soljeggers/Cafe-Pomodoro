@@ -1,7 +1,7 @@
 import java.util.concurrent.Executors
-
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Random
+import scala.util.control.NonFatal
+import scala.util.{Failure, Random, Success}
 
 class MilkFrothingException(msg : String) extends Exception(msg)
 class BrewingException(msg : String) extends Exception(msg)
@@ -30,7 +30,7 @@ object Cafe extends App {
     println(s"Starting to grind the $coffeeBeans")
     Thread
     .sleep(Random
-           .nextInt(2000))
+           .nextInt(200))
     coffeeBeans match {
       case ab @ ArabicaBean =>
         println("oooooo Arabica powder has been created...")
@@ -42,38 +42,37 @@ object Cafe extends App {
     }
   }
 
-  def brewCoffee(water: Water, groundCoffee: GroundCoffee): Future[Coffee] = Future {
+  def brewCoffee(water: Water, groundCoffee: GroundCoffee): Future[Espresso] = Future {
+    Thread
+    .sleep(Random
+           .nextInt(400))
     if (water
         .temperature < 40) {
       throw new BrewingException("The water is too cold")
     } else {
-      println(s"Heating the water to ${water.temperature} and adding the $groundCoffee")
-      Coffee(water, groundCoffee)
+      println(s"You're $groundCoffee has been tamped, now brewing your Espresso at ${water.temperature} degrees")
+      Espresso(water, groundCoffee)
     }
   }
 
-  def combine(frothedMilk: Future[FrothedMilk], coffee: Coffee): Coffee = {
-    if (frothedMilk
-        .isDefined) {
-      println("YOU'VE MADE A LATTE LAD! GOOD JOB!")
-      new Latte(Water(coffee
-                      .water
-                      .temperature - 5), GroundCoffee("Ground Arabica"), frothedMilk.get)
-
-    } else {
-      println("OOOO NO MILK... I GUESS THIS IS AN AMERICANO?!")
-      new Americano(Water(coffee
-                          .water
-                          .temperature), GroundCoffee("Ground Arabica"))
+  def combine(frothedMilk: Future[FrothedMilk], coffee: Espresso): Unit = {
+    Thread
+    .sleep(Random
+           .nextInt(2000))
+    frothedMilk
+    .onComplete {
+      case Success(m) => new Latte(Water(), GroundCoffee("Ground Arabica"), FrothedMilk(WholeMilk))
+        println("Congrats on the Latte G")
+      case Failure(e) => Espresso(Water(), GroundCoffee("Ground Arabica"))
+//      case Failure(NonFatal(nf)) => throw new MilkFrothingException("That ain't right G")
     }
   }
-
   val groundbeans = grind(ArabicaBean)
   val milk = froth(WholeMilk)
   val waterTemp = Water(50)
   val brewc = brewCoffee(Water(), GroundCoffee("Ground Arabica"))
-  val makeLatte = combine(Some(milk), brewc)
-  val makeAmericano = combine(None, brewc)
+
+//  val makeLatte = combine(milk, brewc(Water(), GroundCoffee("")))
 
 
 //  val makeCoffee =  {
@@ -83,6 +82,6 @@ object Cafe extends App {
 //      espresso <- brewc
 //    } yield {
 //      combine(Some(milk), espresso)
-//    }
+//    }                              
 //  }
 }
